@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
-"""very basic utility to scrape comments from an Instagram post and
-record points to an Excel workbook.
 
-usage:
-    python insta-automation.py
-
-The script asks for Instagram credentials, logs in, then asks for a post URL,
-uses :pypi:`instaloader` to fetch comments and writes a row for every comment
-(10 points each) into ``points.xlsx``. Existing data is preserved and new rows
-are appended.
-"""
-
+## Avoiding rate limit 
+## 1.) Do not try to run the program multiple times in a short period of time.
+## 2.) Check only url of the post and close the browser tab before running the program.
+## 3.) If program fails unexpectedly, wait for 5 minutes before trying again.
+## 4.) If you have multiple posts to check, wait 5 minutes between each post. Do not exit the program 
+## just provide the new url by typing newpost and pressing Enter.
 import os
 import re
 import sys
@@ -20,15 +15,12 @@ import instaloader
 import pandas as pd
 
 
-EXCEL_FILENAME = "points.xlsx"
-POINTS_PER_COMMENT = 10
+EXCEL_FILENAME = "Social-points.xlsx"
+POINTS_PER_COMMENT = 10  ## This will change due to Sylvia's rules, but for now it's a constant.
 
 
 def extract_shortcode(post_url: str) -> str | None:
-    """Extract the shortcode from an Instagram post URL.
-
-    A normal post URL looks like ``https://www.instagram.com/p/ABC12345xyz/``.
-    """
+    # instagram post url should look like https://www.instagram.com/p/SHORTCODE/ or https://www.instagram.com/reel/SHORTCODE/
 
     match = re.search(r"/p/([^/]+)/", post_url)
     return match.group(1) if match else None
