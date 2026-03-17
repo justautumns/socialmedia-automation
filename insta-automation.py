@@ -80,14 +80,14 @@ if not st.session_state.logged_in:
                     st.session_state.username = u
                     st.success("Login successful! Preparing...")
                     time.sleep(1)
-                    st.rerun() # Formu temizlemek için sayfayı yeniler
+                    st.rerun() # Clear the form and move to the main app
                 except Exception as e:
                     st.error(f"Login error: {e}")
             else:
                 st.warning("Please enter a username and password.")
-    st.stop() # Giriş yapılana kadar burada kalır
+    st.stop() # Display only the login form until logged in
 
-# --- 4. ARAYÜZ (ANA UYGULAMA) ---
+# --- GUI PART ---
 st.sidebar.success(f"Login Successful: {st.session_state.username}")
 if st.sidebar.button("Logout"):
     st.session_state.logged_in = False
@@ -126,7 +126,7 @@ if st.button("Get the points!"):
                         # sleep to avoid rate limits
                         time.sleep(random.uniform(0.3, 0.7))
                     
-                    # --- LIKES ---
+                    # --- LIKES (NOT GONNA WORK) ---
                     st.write("❤️ Checking for likes...")
                     like_count = 0
                     try:
